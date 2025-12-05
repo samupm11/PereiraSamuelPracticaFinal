@@ -1,5 +1,7 @@
 package edu.daw.samu.PokemonVGC.model;
 
+import edu.daw.samu.PokemonVGC.model.VO.Arquetipo;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +16,10 @@ public class Jugador {
 
     private String nombre;
     private String nacionalidad;
-    private String arquetipoFavorito;
+    
+    @Embedded
+    private Arquetipo arquetipoFavorito;
+    
     public Long getId() {
         return id;
     }
@@ -33,11 +38,4 @@ public class Jugador {
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;
     }
-    public String getArquetipoFavorito() {
-        return arquetipoFavorito;
-    }
-    public void setArquetipoFavorito(String arquetipoFavorito) {
-        this.arquetipoFavorito = arquetipoFavorito;
-    } 
-
 }

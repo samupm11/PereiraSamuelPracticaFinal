@@ -1,5 +1,7 @@
 package edu.daw.samu.PokemonVGC.model;
 
+import edu.daw.samu.PokemonVGC.model.VO.Premio;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +16,10 @@ public class ResultadoTorneo {
 
     private int posicionFinal;
     private int puntosObtenidos;
-    private int premioEuros;
+    
+    @Embedded
+    private Premio premioEuros;
+    
     public Long getId() {
         return id;
     }
@@ -33,11 +38,4 @@ public class ResultadoTorneo {
     public void setPuntosObtenidos(int puntosObtenidos) {
         this.puntosObtenidos = puntosObtenidos;
     }
-    public int getPremioEuros() {
-        return premioEuros;
-    }
-    public void setPremioEuros(int premioEuros) {
-        this.premioEuros = premioEuros;
-    } 
-
 }
