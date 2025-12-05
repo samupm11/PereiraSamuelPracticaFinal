@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ResultadoTorneo {
@@ -13,14 +11,6 @@ public class ResultadoTorneo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "jugador_id")
-    private Jugador jugador;
-
-    @ManyToOne
-    @JoinColumn(name = "torneo_id")
-    private Torneo torneo;
 
     private int posicionFinal;
     private int puntosObtenidos;
@@ -30,18 +20,6 @@ public class ResultadoTorneo {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-    public Jugador getJugador() {
-        return jugador;
-    }
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
-    }
-    public Torneo getTorneo() {
-        return torneo;
-    }
-    public void setTorneo(Torneo torneo) {
-        this.torneo = torneo;
     }
     public int getPosicionFinal() {
         return posicionFinal;
@@ -60,6 +38,6 @@ public class ResultadoTorneo {
     }
     public void setPremioEuros(int premioEuros) {
         this.premioEuros = premioEuros;
-    }
+    } 
 
 }
