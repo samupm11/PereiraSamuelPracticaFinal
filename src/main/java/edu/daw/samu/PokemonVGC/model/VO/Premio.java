@@ -1,44 +1,42 @@
 package edu.daw.samu.PokemonVGC.model.VO;
 
-import jakarta.persistence.Embeddable;
 import java.util.Objects;
+
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public final class Premio {
-
-    private final int cantidad;
+    private final Integer cantidad;
     private final String moneda;
 
-    public Premio(int cantidad, String moneda) {
-        if (cantidad < 0) {
-            throw new IllegalArgumentException("La cantidad no puede ser negativa");
+    public Premio(Integer cantidad, String moneda) {
+        if (cantidad == null || cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad del premio debe ser mayor que cero.");
         }
+
         if (moneda == null || moneda.trim().isEmpty()) {
-            throw new IllegalArgumentException("La moneda no puede ser nula o vacía");
+            throw new IllegalArgumentException("La moneda no puede estar vacía.");
         }
+
         this.cantidad = cantidad;
-        this.moneda = moneda.trim();
+        this.moneda = moneda.trim().toUpperCase();
     }
 
     protected Premio() {
-        this.cantidad = 0;
-        this.moneda = "EUR";
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public String getMoneda() {
-        return moneda;
+        this.cantidad = null;
+        this.moneda = null;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Premio premio = (Premio) obj;
-        return cantidad == premio.cantidad && Objects.equals(moneda, premio.moneda);
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Premio premio = (Premio) o;
+
+        return Objects.equals(cantidad, premio.cantidad) &&
+               Objects.equals(moneda, premio.moneda);
     }
 
     @Override
@@ -49,5 +47,13 @@ public final class Premio {
     @Override
     public String toString() {
         return cantidad + " " + moneda;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public String getMoneda() {
+        return moneda;
     }
 }
