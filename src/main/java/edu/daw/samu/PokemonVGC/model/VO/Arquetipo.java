@@ -5,40 +5,46 @@ import java.util.Set;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public final class Arquetipo {
-    private final String valor;
+public class Arquetipo {
+
+    // 🔹 Ya no es final → ahora JPA puede mapearlo correctamente
+    private String valor;
 
     public Arquetipo(String valor) {
         if (valor == null || valor.trim().isEmpty()) {
             throw new IllegalArgumentException("El arquetipo no puede estar vacío.");
         }
 
-        //  arquetipos en el circuito VGC actual
+        //  arquetipos válidos en el circuito VGC actual
         Set<String> arquetiposValidos = Set.of(
-            "BALANCE", "TRICK_ROOM", "RAIN", "SUN", "OFFENSIVE", "PERISH_SONG", "DONDOZO"
+            "BALANCE", "TRICK_ROOM", "RAIN", "SUN", 
+            "OFFENSIVE", "PERISH_SONG", "DONDOZO"
         );
 
         String normalizado = valor.trim().toUpperCase();
         if (!arquetiposValidos.contains(normalizado)) {
-            throw new IllegalArgumentException("Arquetipo no válido: " + normalizado +
-                ". Valores permitidos: " + arquetiposValidos);
+            throw new IllegalArgumentException(
+                "Arquetipo no válido: " + normalizado +
+                ". Valores permitidos: " + arquetiposValidos
+            );
         }
 
         this.valor = normalizado;
     }
 
+    // 🔹 Constructor protegido requerido por JPA
     protected Arquetipo() {
-        this.valor = null;
+    }
+
+    public String getValor() {
+        return valor;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Arquetipo arquetipo = (Arquetipo) o;
-
         return Objects.equals(valor, arquetipo.valor);
     }
 
@@ -51,8 +57,4 @@ public final class Arquetipo {
     public String toString() {
         return valor;
     }
-
-    public String getValor() {
-        return valor;
-    }
-}     
+}

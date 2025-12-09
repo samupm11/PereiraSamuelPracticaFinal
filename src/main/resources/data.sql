@@ -3,7 +3,7 @@ INSERT INTO equipo (id, nombre, pais) VALUES
 (2, 'Il Server', 'Italia'),
 (3, 'Meigas Clan', 'España');
 
-INSERT INTO jugador (id, nombre, nacionalidad, arquetipoFavorito, equipo_id) VALUES
+INSERT INTO jugador (id, nombre, nacionalidad, arquetipo_Favorito, equipo_id) VALUES
 (1, 'Alex Gomez', 'España', 'BALANCE', 1),
 (2, 'Eric Rios', 'España', 'OFFENSIVE', 1),
 (3, 'Samuel Pereira', 'España', 'BALANCE', 3),
@@ -20,13 +20,13 @@ INSERT INTO torneo (id, nombre, lugar, tipo, max_jugadores) VALUES
 INSERT INTO torneo_jugador (torneo_id, jugador_id) VALUES
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7);
 
-INSERT INTO tornero_jugador (torneo_id, jugador_id) VALUES
+INSERT INTO torneo_jugador (torneo_id, jugador_id) VALUES
 (2, 2), (2, 3);
 
 INSERT INTO torneo_jugador (torneo_id, jugador_id) VALUES
 (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7);
 
-INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premioEuros_cantidad, premioEuros_moneda) VALUES
+INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premio_cantidad, premio_moneda) VALUES
 (7, 1, 1, 0, 30000, 'USD'),   
 (6, 1, 32, 0, 0, 'USD'),      
 (1, 1, 256, 0, 0, 'USD'),       
@@ -35,11 +35,11 @@ INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obte
 (4, 1, 256, 0, 0, 'USD'),      
 (5, 1, 256, 0, 0, 'USD');       
 
-INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premioEuros_cantidad, premioEuros_moneda) VALUES
+INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premio_cantidad, premio_moneda) VALUES
 (3, 2, 6, 280, 0, 'EUR'),    
 (2, 2, 32, 120, 0, 'EUR');       
 
-INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premioEuros_cantidad, premioEuros_moneda) VALUES
+INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obtenidos, premio_cantidad, premio_moneda) VALUES
 (6, 3, 1, 500, 15000, 'USD'),   
 (1, 3, 128, 0, 0, 'USD'),      
 (2, 3, 128, 0, 0, 'USD'),     
