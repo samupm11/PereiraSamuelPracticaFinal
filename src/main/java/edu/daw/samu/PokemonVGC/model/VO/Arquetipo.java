@@ -7,7 +7,6 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class Arquetipo {
 
-    // 🔹 Ya no es final → ahora JPA puede mapearlo correctamente
     private String valor;
 
     public Arquetipo(String valor) {
@@ -15,7 +14,6 @@ public class Arquetipo {
             throw new IllegalArgumentException("El arquetipo no puede estar vacío.");
         }
 
-        //  arquetipos válidos en el circuito VGC actual
         Set<String> arquetiposValidos = Set.of(
             "BALANCE", "TRICK_ROOM", "RAIN", "SUN", 
             "OFFENSIVE", "PERISH_SONG", "DONDOZO"
@@ -31,8 +29,6 @@ public class Arquetipo {
 
         this.valor = normalizado;
     }
-
-    // 🔹 Constructor protegido requerido por JPA
     protected Arquetipo() {
     }
 

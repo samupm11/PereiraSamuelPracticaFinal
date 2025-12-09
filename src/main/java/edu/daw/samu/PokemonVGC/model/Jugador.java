@@ -17,7 +17,6 @@ public class Jugador {
     @Column(name = "nacionalidad", nullable = false)
     private String nacionalidad;
 
-    // 🔹 Ahora funciona correctamente con Arquetipo modificado
     @Embedded
     @AttributeOverride(
         name = "valor",
