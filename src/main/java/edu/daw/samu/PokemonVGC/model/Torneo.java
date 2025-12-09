@@ -1,9 +1,15 @@
 package edu.daw.samu.PokemonVGC.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Torneo {
@@ -16,6 +22,15 @@ public class Torneo {
     private String lugar;
     private String tipo;
     private int maxJugadores;
+    
+    @ManyToMany
+@JoinTable(
+    name = "torneo_jugador",
+    joinColumns = @JoinColumn(name = "torneo_id"),
+    inverseJoinColumns = @JoinColumn(name = "jugador_id")
+)
+private List<Jugador> participantes = new ArrayList<>();
+
     public Long getId() {
         return id;
     }

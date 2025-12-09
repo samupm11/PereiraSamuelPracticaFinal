@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ResultadoTorneo {
@@ -19,7 +21,15 @@ public class ResultadoTorneo {
     
     @Embedded
     private Premio premioEuros;
-    
+
+     @ManyToOne
+     @JoinColumn(name = "jugador_id")
+     private Jugador jugador;
+
+     @ManyToOne
+     @JoinColumn(name = "torneo_id")
+     private Torneo torneo;
+
     public Long getId() {
         return id;
     }

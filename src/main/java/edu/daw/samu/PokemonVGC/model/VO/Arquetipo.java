@@ -55,4 +55,4 @@ public final class Arquetipo {
     public String getValor() {
         return valor;
     }
-}
+}     
