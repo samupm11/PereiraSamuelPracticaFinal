@@ -13,7 +13,7 @@ public final class Arquetipo {
             throw new IllegalArgumentException("El arquetipo no puede estar vacío.");
         }
 
-        // Definimos los arquetipos válidos en el circuito VGC actual
+        //  arquetipos en el circuito VGC actual
         Set<String> arquetiposValidos = Set.of(
             "BALANCE", "TRICK_ROOM", "RAIN", "SUN", "OFFENSIVE", "PERISH_SONG", "DONDOZO"
         );
