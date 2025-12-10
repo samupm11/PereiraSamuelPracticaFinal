@@ -45,5 +45,6 @@ INSERT INTO resultado_torneo (jugador_id, torneo_id, posicion_final, puntos_obte
 (2, 3, 128, 0, 0, 'USD'),     
 (3, 3, 128, 0, 0, 'USD'), 
 (4, 3, 128, 0, 0, 'USD'),     
+
 (5, 3, 128, 0, 0, 'USD'),     
 (7, 3, 128, 0, 0, 'USD');      
