@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import edu.daw.samu.PokemonVGC.model.Equipo;
 import edu.daw.samu.PokemonVGC.model.Jugador;
+import edu.daw.samu.PokemonVGC.model.Equipo;
+import edu.daw.samu.PokemonVGC.model.dto.JugadorDTO;
 import edu.daw.samu.PokemonVGC.model.VO.Arquetipo;
-import edu.daw.samu.PokemonVGC.repository.EquipoRepository;
 import edu.daw.samu.PokemonVGC.repository.JugadorRepository;
+import edu.daw.samu.PokemonVGC.repository.EquipoRepository;
 import edu.daw.samu.PokemonVGC.service.interfaces.IJugadorService;
 
 @Service
@@ -34,18 +35,18 @@ public class JugadorServiceImpl implements IJugadorService {
     }
 
     @Override
-    public Jugador crear(String nombre, String nacionalidad, String arquetipoStr, Long equipoId) {
+    public Jugador crearDesdeDTO(JugadorDTO dto) {
         Jugador jugador = new Jugador();
-        jugador.setNombre(nombre);
-        jugador.setNacionalidad(nacionalidad);
-        
-        if (arquetipoStr != null && !arquetipoStr.trim().isEmpty()) {
-            jugador.setArquetipoFavorito(new Arquetipo(arquetipoStr));
+        jugador.setNombre(dto.nombre());
+        jugador.setNacionalidad(dto.nacionalidad());
+
+        if (dto.arquetipoFavorito() != null && !dto.arquetipoFavorito().trim().isEmpty()) {
+            jugador.setArquetipoFavorito(new Arquetipo(dto.arquetipoFavorito()));
         }
 
-        if (equipoId != null) {
-            Equipo equipo = equipoRepository.findById(equipoId)
-                .orElseThrow(() -> new RuntimeException("Equipo no encontrado con ID: " + equipoId));
+        if (dto.equipoId() != null) {
+            Equipo equipo = equipoRepository.findById(dto.equipoId())
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado con ID: " + dto.equipoId()));
             jugador.setEquipo(equipo);
         }
 
@@ -53,21 +54,21 @@ public class JugadorServiceImpl implements IJugadorService {
     }
 
     @Override
-    public Jugador actualizar(Long id, String nombre, String nacionalidad, String arquetipoStr, Long equipoId) {
+    public Jugador actualizarDesdeDTO(Long id, JugadorDTO dto) {
         return jugadorRepository.findById(id)
             .map(jugador -> {
-                jugador.setNombre(nombre);
-                jugador.setNacionalidad(nacionalidad);
-                
-                if (arquetipoStr != null && !arquetipoStr.trim().isEmpty()) {
-                    jugador.setArquetipoFavorito(new Arquetipo(arquetipoStr));
+                jugador.setNombre(dto.nombre());
+                jugador.setNacionalidad(dto.nacionalidad());
+
+                if (dto.arquetipoFavorito() != null && !dto.arquetipoFavorito().trim().isEmpty()) {
+                    jugador.setArquetipoFavorito(new Arquetipo(dto.arquetipoFavorito()));
                 } else {
                     jugador.setArquetipoFavorito(null);
                 }
 
-                if (equipoId != null) {
-                    Equipo equipo = equipoRepository.findById(equipoId)
-                        .orElseThrow(() -> new RuntimeException("Equipo no encontrado con ID: " + equipoId));
+                if (dto.equipoId() != null) {
+                    Equipo equipo = equipoRepository.findById(dto.equipoId())
+                        .orElseThrow(() -> new RuntimeException("Equipo no encontrado con ID: " + dto.equipoId()));
                     jugador.setEquipo(equipo);
                 } else {
                     jugador.setEquipo(null);

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import edu.daw.samu.PokemonVGC.model.Equipo;
+import edu.daw.samu.PokemonVGC.model.dto.EquipoDTO;
 import edu.daw.samu.PokemonVGC.repository.EquipoRepository;
 import edu.daw.samu.PokemonVGC.service.interfaces.IEquipoService;
 
@@ -29,19 +30,19 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
-    public Equipo crear(String nombre, String pais) {
+    public Equipo crearDesdeDTO(EquipoDTO dto) {
         Equipo equipo = new Equipo();
-        equipo.setNombre(nombre);
-        equipo.setPais(pais);
+        equipo.setNombre(dto.nombre());
+        equipo.setPais(dto.pais());
         return equipoRepository.save(equipo);
     }
 
     @Override
-    public Equipo actualizar(Long id, String nombre, String pais) {
+    public Equipo actualizarDesdeDTO(Long id, EquipoDTO dto) {
         return equipoRepository.findById(id)
             .map(equipo -> {
-                equipo.setNombre(nombre);
-                equipo.setPais(pais);
+                equipo.setNombre(dto.nombre());
+                equipo.setPais(dto.pais());
                 return equipoRepository.save(equipo);
             })
             .orElseThrow(() -> new RuntimeException("Equipo no encontrado con ID: " + id));

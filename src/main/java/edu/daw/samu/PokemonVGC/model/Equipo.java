@@ -30,6 +30,8 @@ public class Equipo {
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Jugador> jugadores = new ArrayList<>();
 
+    public Equipo() {}
+    
     public Long getId() {
         return id;
     }

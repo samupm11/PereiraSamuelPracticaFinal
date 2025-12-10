@@ -41,6 +41,10 @@ public class Torneo {
     )
     private List<Jugador> participantes = new ArrayList<>();
 
+   
+    
+public Torneo() {}
+
     public Long getId() {
         return id;
     }
@@ -88,5 +92,4 @@ public class Torneo {
     public void setParticipantes(List<Jugador> participantes) {
         this.participantes = participantes;
     }
-
 }

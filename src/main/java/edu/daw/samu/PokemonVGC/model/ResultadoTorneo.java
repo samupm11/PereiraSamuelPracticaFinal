@@ -1,16 +1,7 @@
 package edu.daw.samu.PokemonVGC.model;
 
 import edu.daw.samu.PokemonVGC.model.VO.Premio;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "resultado_torneo")
@@ -39,53 +30,25 @@ public class ResultadoTorneo {
     @AttributeOverride(name = "moneda", column = @Column(name = "premio_moneda"))
     private Premio premio;
 
-    public Long getId() {
-        return id;
-    }
+    // 👇 Constructor protegido requerido por JPA
+    protected ResultadoTorneo() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Getters y setters (ya los tienes bien)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Jugador getJugador() {
-        return jugador;
-    }
+    public Jugador getJugador() { return jugador; }
+    public void setJugador(Jugador jugador) { this.jugador = jugador; }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
-    }
+    public Torneo getTorneo() { return torneo; }
+    public void setTorneo(Torneo torneo) { this.torneo = torneo; }
 
-    public Torneo getTorneo() {
-        return torneo;
-    }
+    public int getPosicionFinal() { return posicionFinal; }
+    public void setPosicionFinal(int posicionFinal) { this.posicionFinal = posicionFinal; }
 
-    public void setTorneo(Torneo torneo) {
-        this.torneo = torneo;
-    }
+    public int getPuntosObtenidos() { return puntosObtenidos; }
+    public void setPuntosObtenidos(int puntosObtenidos) { this.puntosObtenidos = puntosObtenidos; }
 
-    public int getPosicionFinal() {
-        return posicionFinal;
-    }
-
-    public void setPosicionFinal(int posicionFinal) {
-        this.posicionFinal = posicionFinal;
-    }
-
-    public int getPuntosObtenidos() {
-        return puntosObtenidos;
-    }
-
-    public void setPuntosObtenidos(int puntosObtenidos) {
-        this.puntosObtenidos = puntosObtenidos;
-    }
-
-    public Premio getPremio() {
-        return premio;
-    }
-
-    public void setPremio(Premio premio) {
-        this.premio = premio;
-    }
-
-
+    public Premio getPremio() { return premio; }
+    public void setPremio(Premio premio) { this.premio = premio; }
 }

@@ -28,6 +28,8 @@ public class Jugador {
     @JoinColumn(name = "equipo_id")
     private Equipo equipo;
 
+    public Jugador() {}
+
     public Long getId() {
         return id;
     }

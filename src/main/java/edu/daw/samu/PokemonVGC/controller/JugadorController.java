@@ -3,6 +3,7 @@ package edu.daw.samu.PokemonVGC.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.daw.samu.PokemonVGC.model.Equipo;
 import edu.daw.samu.PokemonVGC.model.Jugador;
-import edu.samu.back.pokemonvgc.model.dto.JugadorDTO;
-import edu.samu.back.pokemonvgc.mapper.JugadorMapper;
-import edu.samu.back.pokemonvgc.service.interfaces.IJugadorService;
+import edu.daw.samu.PokemonVGC.model.dto.JugadorDTO;
+import edu.daw.samu.PokemonVGC.service.interfaces.IJugadorService;
 
 @RestController
 @RequestMapping("/api/jugadores")
@@ -24,43 +25,41 @@ public class JugadorController {
     @Autowired
     private IJugadorService jugadorService;
 
-    @Autowired
-    private JugadorMapper jugadorMapper;
-
     @GetMapping
-    public List<JugadorDTO> listarJugadores() {
-        return jugadorService.obtenerTodosLosJugadores().stream()
-                .map(jugadorMapper::toDto)
-                .toList();
+    public List<Jugador> listarJugadores() {
+        return jugadorService.obtenerTodos();
     }
 
     @GetMapping("/{id}")
-    public JugadorDTO obtenerJugadorPorId(@PathVariable("id") Long id) {
-        return jugadorMapper.toDto(jugadorService.obtenerJugadorPorId(id));
+    public ResponseEntity<Jugador> obtenerJugadorPorId(@PathVariable Long id) {
+        return jugadorService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/equipo")
-    public Object obtenerEquipoDeJugador(@PathVariable(" id ") Long id) {
-        return jugadorService.obtenerJugadorPorId(id).getEquipo();
+    public ResponseEntity<Equipo> obtenerEquipoDeJugador(@PathVariable Long id) {
+        return jugadorService.obtenerPorId(id)
+                .map(Jugador::getEquipo)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/save")
-    public JugadorDTO guardarJugador(@RequestBody JugadorDTO jugadorDTO) {
-        Jugador jugador = jugadorMapper.toEntity(jugadorDTO);
-        Jugador guardado = jugadorService.crearJugador(jugador);
-        return jugadorMapper.toDto(guardado);
+    @PostMapping
+    public ResponseEntity<Jugador> crearJugador(@RequestBody JugadorDTO dto) {
+        Jugador nuevo = jugadorService.crearDesdeDTO(dto);
+        return ResponseEntity.status(201).body(nuevo);
     }
 
-    @PutMapping("/update/{id}")
-    public JugadorDTO actualizarJugador(@PathVariable("id") Long id, @RequestBody JugadorDTO jugadorDTO) {
-        Jugador jugador = jugadorMapper.toEntity(jugadorDTO);
-        Jugador actualizado = jugadorService.actualizarJugador(id, jugador);
-        return jugadorMapper.toDto(actualizado);
+    @PutMapping("/{id}")
+    public ResponseEntity<Jugador> actualizarJugador(@PathVariable Long id, @RequestBody JugadorDTO dto) {
+        Jugador actualizado = jugadorService.actualizarDesdeDTO(id, dto);
+        return ResponseEntity.ok(actualizado);
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public JugadorDTO eliminarJugador(@PathVariable("id") Long id) {
-        Jugador eliminado = jugadorService.borrarJugador(id);
-        return jugadorMapper.toDto(eliminado);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarJugador(@PathVariable Long id) {
+        jugadorService.borrar(id);
+        return ResponseEntity.noContent().build();
     }
 }
