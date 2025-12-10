@@ -25,7 +25,7 @@ public class JugadorMapper {
         if (dto == null) return null;
 
         Jugador jugador = new Jugador();
-        jugador.setId(dto.id()); // JPA lo manejará si es null
+        jugador.setId(dto.id()); 
         jugador.setNombre(dto.nombre());
         jugador.setNacionalidad(dto.nacionalidad());
 
@@ -33,8 +33,7 @@ public class JugadorMapper {
             jugador.setArquetipoFavorito(new Arquetipo(dto.arquetipoFavorito()));
         }
 
-        // El equipo se gestiona en el servicio (por ahora)
-        // No asignamos directamente aquí
+    
 
         return jugador;
     }

@@ -24,10 +24,12 @@ public class EquipoController {
     @Autowired
     private IEquipoService equipoService;
 
-    @GetMapping
-    public List<Equipo> listarEquipos() {
-        return equipoService.obtenerTodos();
-    }
+   @GetMapping
+public ResponseEntity<List<EquipoDTO>> listarEquipos() {
+    return ResponseEntity.ok(equipoService.obtenerTodos().stream()
+            .map(equipo -> new EquipoDTO(equipo.getId(), equipo.getNombre(), equipo.getPais()))
+            .toList());
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<Equipo> obtenerEquipoPorId(@PathVariable Long id) {
